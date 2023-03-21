@@ -1,0 +1,27 @@
+package com.example.thisismyproject.model;
+
+enum Meters {
+    M16,
+    M17,
+    M18,
+    M19,
+    M20,
+    M21,
+    M22,
+    M23,
+    M24,
+    M25,
+    M26,
+    M27,
+    M28,
+    M29,
+    M30,
+    M31,
+    M32,
+    M33,
+    M34,
+    M35,
+    M36,
+    M37,
+    M38,
+}
