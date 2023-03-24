@@ -2,14 +2,16 @@ package com.example.thisismyproject.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
 @Data
 @AllArgsConstructor
-@Table(name = "rent_apartment")
-@Entity
-public class RentApartment {
+@Table(name = "apartment")
+public class Apartment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -43,27 +45,14 @@ public class RentApartment {
     public void setComments(String comments) {
         this.comments = comments;
     }
+
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
 
-    public RentApartment(String metro, int minutes, String styles, String comment, long price, double percentOfNature, int rooms, int meters, String typeOfBuilding, String side, String comments) {
-        this.metro = metro;
-        this.minutes = minutes;
-        this.styles = styles;
-        this.comment = comment;
-        this.price = price;
-        this.percentOfNature = percentOfNature;
-        this.rooms = rooms;
-        this.meters = meters;
-        this.typeOfBuilding = typeOfBuilding;
-        this.side = side;
-        this.comments = comments;
-    }
     public String getMetro() {
         return metro;
     }
@@ -143,20 +132,37 @@ public class RentApartment {
     public void setSide(String side) {
         this.side = side;
     }
-
-    public RentApartment() {
+    public Apartment() {
     }
+
+    public Apartment(String metro, int minutes, String styles, String comment, long price, double percentOfNature, int rooms, int meters, String typeOfBuilding, String comments, String side) {
+        this.metro = metro;
+        this.minutes = minutes;
+        this.styles = styles;
+        this.comment = comment;
+        this.price = price;
+        this.percentOfNature = percentOfNature;
+        this.rooms = rooms;
+        this.meters = meters;
+        this.typeOfBuilding = typeOfBuilding;
+        this.comments = comments;
+        this.side = side;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RentApartment that = (RentApartment) o;
-        return id == that.id && minutes == that.minutes && price == that.price && Double.compare(that.percentOfNature, percentOfNature) == 0 && Objects.equals(metro, that.metro) && styles == that.styles && Objects.equals(comment, that.comment) && rooms == that.rooms && meters == that.meters && typeOfBuilding == that.typeOfBuilding && side == that.side && Objects.equals(comments, that.comments);
+        Apartment apartment = (Apartment) o;
+        return id == apartment.id && minutes == apartment.minutes && price == apartment.price && Double.compare(apartment.percentOfNature, percentOfNature) == 0 && Objects.equals(metro, apartment.metro) && styles == apartment.styles && Objects.equals(comment, apartment.comment) && rooms == apartment.rooms && meters == apartment.meters && typeOfBuilding == apartment.typeOfBuilding && Objects.equals(comments, apartment.comments) && side == apartment.side;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, metro, minutes, styles, comment, price, percentOfNature, rooms, meters, typeOfBuilding, side, comments);
+        return Objects.hash(id, metro, minutes, styles, comment, price, percentOfNature, rooms, meters, typeOfBuilding, comments, side);
     }
-
 }
+/** нужно как то сделать так, чтобы была возможность заполнять только данные определенного вида
+ * впоследствии они долыжны каститься от стринг ак типу-значению в конструкторе enum, по скольку значения типа Enum в таблице PostrgreSQLk быть не может*/
+
+//какого то черта
