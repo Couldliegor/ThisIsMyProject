@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
 @Data
 @AllArgsConstructor
-@Table(name = "rent_apartment")
-@Entity
-public class RentApartment {
+@Table(name = "apartment")
+public class Apartment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @OrderColumn
@@ -45,6 +45,21 @@ public class RentApartment {
         return comments;
     }
 
+    public Apartment(String metro, int minutes, String styles, String comment, long price, double percentOfNature, int rooms, int meters, String typeOfBuilding, String comments, String side, String url) {
+        this.metro = metro;
+        this.minutes = minutes;
+        this.styles = styles;
+        this.comment = comment;
+        this.price = price;
+        this.percentOfNature = percentOfNature;
+        this.rooms = rooms;
+        this.meters = meters;
+        this.typeOfBuilding = typeOfBuilding;
+        this.comments = comments;
+        this.side = side;
+        this.url = url;
+    }
+
     public void setComments(String comments) {
         this.comments = comments;
     }
@@ -56,22 +71,6 @@ public class RentApartment {
         this.id = id;
     }
 
-    public RentApartment(String metro, int minutes, String styles, String comment,
-                         long price, double percentOfNature, int rooms, int meters,
-                         String typeOfBuilding, String side, String comments, String url) {
-        this.metro = metro;
-        this.minutes = minutes;
-        this.styles = styles;
-        this.comment = comment;
-        this.price = price;
-        this.percentOfNature = percentOfNature;
-        this.rooms = rooms;
-        this.meters = meters;
-        this.typeOfBuilding = typeOfBuilding;
-        this.side = side;
-        this.comments = comments;
-        this.url = url;
-    }
     public String getMetro() {
         return metro;
     }
@@ -147,9 +146,24 @@ public class RentApartment {
     public String getSide() {
         return side;
     }
-
     public void setSide(String side) {
         this.side = side;
+    }
+
+    public Apartment() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Apartment apartment = (Apartment) o;
+        return id == apartment.id && minutes == apartment.minutes && price == apartment.price && Double.compare(apartment.percentOfNature, percentOfNature) == 0 && rooms == apartment.rooms && meters == apartment.meters && Objects.equals(metro, apartment.metro) && Objects.equals(styles, apartment.styles) && Objects.equals(comment, apartment.comment) && Objects.equals(typeOfBuilding, apartment.typeOfBuilding) && Objects.equals(side, apartment.side) && Objects.equals(comments, apartment.comments) && Objects.equals(url, apartment.url);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, metro, minutes, styles, comment, price, percentOfNature, rooms, meters, typeOfBuilding, side, comments, url);
     }
 
     public String getUrl() {
@@ -159,20 +173,8 @@ public class RentApartment {
     public void setUrl(String url) {
         this.url = url;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        RentApartment that = (RentApartment) o;
-        return id == that.id && minutes == that.minutes && price == that.price && Double.compare(that.percentOfNature, percentOfNature) == 0 && rooms == that.rooms && meters == that.meters && Objects.equals(metro, that.metro) && Objects.equals(styles, that.styles) && Objects.equals(comment, that.comment) && Objects.equals(typeOfBuilding, that.typeOfBuilding) && Objects.equals(side, that.side) && Objects.equals(comments, that.comments) && Objects.equals(url, that.url);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, metro, minutes, styles, comment, price, percentOfNature, rooms, meters, typeOfBuilding, side, comments, url);
-    }
-
-    public RentApartment() {
-    }
 }
+/** нужно как то сделать так, чтобы была возможность заполнять только данные определенного вида
+ * впоследствии они долыжны каститься от стринг ак типу-значению в конструкторе enum, по скольку значения типа Enum в таблице PostrgreSQLk быть не может*/
+
+//какого то черта
