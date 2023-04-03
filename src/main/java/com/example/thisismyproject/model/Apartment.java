@@ -14,6 +14,7 @@ import java.util.Objects;
 public class Apartment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @OrderColumn
     @Column(name = "id")
     private long id;
     @Column(name = "metro")
@@ -38,17 +39,34 @@ public class Apartment {
     private String side;
     @Column(name = "comments")
     private String comments;
+    @Column(name = "URl")
+    private String url;
     public String getComments() {
         return comments;
+    }
+
+    public Apartment(String metro, int minutes, String styles, String comment, long price, double percentOfNature, int rooms, int meters, String typeOfBuilding, String comments, String side, String url) {
+        this.metro = metro;
+        this.minutes = minutes;
+        this.styles = styles;
+        this.comment = comment;
+        this.price = price;
+        this.percentOfNature = percentOfNature;
+        this.rooms = rooms;
+        this.meters = meters;
+        this.typeOfBuilding = typeOfBuilding;
+        this.comments = comments;
+        this.side = side;
+        this.url = url;
     }
 
     public void setComments(String comments) {
         this.comments = comments;
     }
-
     public long getId() {
         return id;
     }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -128,25 +146,11 @@ public class Apartment {
     public String getSide() {
         return side;
     }
-
     public void setSide(String side) {
         this.side = side;
     }
-    public Apartment() {
-    }
 
-    public Apartment(String metro, int minutes, String styles, String comment, long price, double percentOfNature, int rooms, int meters, String typeOfBuilding, String comments, String side) {
-        this.metro = metro;
-        this.minutes = minutes;
-        this.styles = styles;
-        this.comment = comment;
-        this.price = price;
-        this.percentOfNature = percentOfNature;
-        this.rooms = rooms;
-        this.meters = meters;
-        this.typeOfBuilding = typeOfBuilding;
-        this.comments = comments;
-        this.side = side;
+    public Apartment() {
     }
 
     @Override
@@ -154,12 +158,20 @@ public class Apartment {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Apartment apartment = (Apartment) o;
-        return id == apartment.id && minutes == apartment.minutes && price == apartment.price && Double.compare(apartment.percentOfNature, percentOfNature) == 0 && Objects.equals(metro, apartment.metro) && styles == apartment.styles && Objects.equals(comment, apartment.comment) && rooms == apartment.rooms && meters == apartment.meters && typeOfBuilding == apartment.typeOfBuilding && Objects.equals(comments, apartment.comments) && side == apartment.side;
+        return id == apartment.id && minutes == apartment.minutes && price == apartment.price && Double.compare(apartment.percentOfNature, percentOfNature) == 0 && rooms == apartment.rooms && meters == apartment.meters && Objects.equals(metro, apartment.metro) && Objects.equals(styles, apartment.styles) && Objects.equals(comment, apartment.comment) && Objects.equals(typeOfBuilding, apartment.typeOfBuilding) && Objects.equals(side, apartment.side) && Objects.equals(comments, apartment.comments) && Objects.equals(url, apartment.url);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, metro, minutes, styles, comment, price, percentOfNature, rooms, meters, typeOfBuilding, comments, side);
+        return Objects.hash(id, metro, minutes, styles, comment, price, percentOfNature, rooms, meters, typeOfBuilding, side, comments, url);
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
 /** нужно как то сделать так, чтобы была возможность заполнять только данные определенного вида

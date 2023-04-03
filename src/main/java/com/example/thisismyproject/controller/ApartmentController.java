@@ -23,8 +23,7 @@ public class ApartmentController {
 
     @PostMapping("/")
     public ResponseEntity<Long> addApartment(@RequestBody Apartment apartment) {
-        apartmentsDAO.addApartment(apartment);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(apartmentsDAO.addApartment(apartment));
     }
 
     @PutMapping(value = "/{id}")

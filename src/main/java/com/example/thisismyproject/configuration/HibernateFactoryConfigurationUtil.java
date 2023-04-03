@@ -6,9 +6,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
-public class HibernateFactoryConfigurationUtil {
+public class HibernateFactoryConfigurationUtil { //Hibernate service
     private static SessionFactory sessionFactory;
-    private static SessionFactory sessionRentFactory;
     public HibernateFactoryConfigurationUtil() {
     }
     public static SessionFactory getSessionFactory() {
@@ -16,6 +15,7 @@ public class HibernateFactoryConfigurationUtil {
             try {
                 Configuration configuration = new Configuration().configure();
                 configuration.addAnnotatedClass(Apartment.class);
+                configuration.addAnnotatedClass(RentApartment.class);
                 StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
                 sessionFactory = configuration.buildSessionFactory(builder.build());
             } catch (Exception e) {
@@ -23,18 +23,5 @@ public class HibernateFactoryConfigurationUtil {
             }
         }
         return sessionFactory;
-    }
-    public static SessionFactory getRentSessionFactory() {
-        if (sessionRentFactory == null) {
-            try {
-                Configuration configuration = new Configuration().configure();
-                configuration.addAnnotatedClass(RentApartment.class);
-                StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
-                sessionRentFactory = configuration.buildSessionFactory(builder.build());
-            } catch (Exception e) {
-                System.out.println("Исключение!");
-            }
-        }
-        return sessionRentFactory;
     }
 }

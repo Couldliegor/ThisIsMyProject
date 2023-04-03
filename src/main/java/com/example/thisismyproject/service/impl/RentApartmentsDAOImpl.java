@@ -18,7 +18,7 @@ public class RentApartmentsDAOImpl implements RentApartmentsDAO {
 
     @Override
     public long addRentApartment(RentApartment rentApartment) {
-        try (Session session = HibernateFactoryConfigurationUtil.getRentSessionFactory().openSession()) {
+        try (Session session = HibernateFactoryConfigurationUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.save(rentApartment);
             transaction.commit();
@@ -27,18 +27,18 @@ public class RentApartmentsDAOImpl implements RentApartmentsDAO {
     }
     @Override
     public RentApartment getRentApartmentById(long id) {
-        return HibernateFactoryConfigurationUtil.getRentSessionFactory().openSession().get(RentApartment.class, id);
+        return HibernateFactoryConfigurationUtil.getSessionFactory().openSession().get(RentApartment.class, id);
     }
 
     @Override
     public List<RentApartment> getAllRentApartments() {
         List<RentApartment> list =
-        (List<RentApartment>) HibernateFactoryConfigurationUtil.getRentSessionFactory().openSession().createQuery("From RentApartment").list();
+        (List<RentApartment>) HibernateFactoryConfigurationUtil.getSessionFactory().openSession().createQuery("From RentApartment").list();
         return list;
     }
     @Override
     public RentApartment editRentApartment(long id, RentApartment rentApartment) {
-        try (Session session = HibernateFactoryConfigurationUtil.getRentSessionFactory().openSession()) {
+        try (Session session = HibernateFactoryConfigurationUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.delete(getRentApartmentById(id));
             rentApartment.setId(id);
@@ -49,7 +49,7 @@ public class RentApartmentsDAOImpl implements RentApartmentsDAO {
     }
     @Override
     public void deleteRentApartment(long id) {
-        try (Session session = HibernateFactoryConfigurationUtil.getRentSessionFactory().openSession()) {
+        try (Session session = HibernateFactoryConfigurationUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.delete(getRentApartmentById(id));
             transaction.commit();

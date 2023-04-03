@@ -23,9 +23,10 @@ public class ApartmentsDAOImpl implements ApartmentsDAO {
             Transaction transaction = session.beginTransaction();
             session.save(apartment);
             transaction.commit();
-            return 2;
+            return apartment.getId();
         }
     }
+
     @Override
     public Apartment getApartmentById(long id) {
         return HibernateFactoryConfigurationUtil.getSessionFactory().openSession().get(Apartment.class, id);
@@ -33,13 +34,13 @@ public class ApartmentsDAOImpl implements ApartmentsDAO {
 
     @Override
     public List<Apartment> getAllApartments() {
-        List<Apartment> list = (List<Apartment>)HibernateFactoryConfigurationUtil.getSessionFactory().openSession().createQuery("From Apartment").list();
+        List<Apartment> list = (List<Apartment>) HibernateFactoryConfigurationUtil.getSessionFactory().openSession().createQuery("From Apartment").list();
         return list;
     }
 
     @Override
     public Apartment editApartment(long id, Apartment apartment) {
-        try (Session session = HibernateFactoryConfigurationUtil.getSessionFactory().openSession()){
+        try (Session session = HibernateFactoryConfigurationUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.delete(getApartmentById(id));
             apartment.setId(id);
@@ -47,8 +48,6 @@ public class ApartmentsDAOImpl implements ApartmentsDAO {
             return apartment;
         }
     }
-
-
 
     @Override
     public void deleteApartment(long id) {

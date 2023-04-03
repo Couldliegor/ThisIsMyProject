@@ -1,6 +1,9 @@
 package com.example.thisismyproject.model;
 
 public enum Side {
-    COUNTRY_SIDE,
-    CITY_SIDE
+    COUNTRY_SIDE("COUNTRY_SIDE"),
+    CITY("City");
+    Side(String str) {
+
+    }
 }

@@ -2,6 +2,8 @@ package com.example.thisismyproject.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -12,6 +14,7 @@ import java.util.Objects;
 public class RentApartment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @OrderColumn
     @Column(name = "id")
     private long id;
     @Column(name = "metro")
@@ -36,6 +39,8 @@ public class RentApartment {
     private String side;
     @Column(name = "comments")
     private String comments;
+    @Column(name = "URl")
+    private String url;
     public String getComments() {
         return comments;
     }
@@ -51,7 +56,9 @@ public class RentApartment {
         this.id = id;
     }
 
-    public RentApartment(String metro, int minutes, String styles, String comment, long price, double percentOfNature, int rooms, int meters, String typeOfBuilding, String side, String comments) {
+    public RentApartment(String metro, int minutes, String styles, String comment,
+                         long price, double percentOfNature, int rooms, int meters,
+                         String typeOfBuilding, String side, String comments, String url) {
         this.metro = metro;
         this.minutes = minutes;
         this.styles = styles;
@@ -63,6 +70,7 @@ public class RentApartment {
         this.typeOfBuilding = typeOfBuilding;
         this.side = side;
         this.comments = comments;
+        this.url = url;
     }
     public String getMetro() {
         return metro;
@@ -144,19 +152,27 @@ public class RentApartment {
         this.side = side;
     }
 
-    public RentApartment() {
+    public String getUrl() {
+        return url;
     }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RentApartment that = (RentApartment) o;
-        return id == that.id && minutes == that.minutes && price == that.price && Double.compare(that.percentOfNature, percentOfNature) == 0 && Objects.equals(metro, that.metro) && styles == that.styles && Objects.equals(comment, that.comment) && rooms == that.rooms && meters == that.meters && typeOfBuilding == that.typeOfBuilding && side == that.side && Objects.equals(comments, that.comments);
+        return id == that.id && minutes == that.minutes && price == that.price && Double.compare(that.percentOfNature, percentOfNature) == 0 && rooms == that.rooms && meters == that.meters && Objects.equals(metro, that.metro) && Objects.equals(styles, that.styles) && Objects.equals(comment, that.comment) && Objects.equals(typeOfBuilding, that.typeOfBuilding) && Objects.equals(side, that.side) && Objects.equals(comments, that.comments) && Objects.equals(url, that.url);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, metro, minutes, styles, comment, price, percentOfNature, rooms, meters, typeOfBuilding, side, comments);
+        return Objects.hash(id, metro, minutes, styles, comment, price, percentOfNature, rooms, meters, typeOfBuilding, side, comments, url);
     }
 
+    public RentApartment() {
+    }
 }
